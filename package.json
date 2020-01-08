@@ -1,0 +1,25 @@
+{
+  "name": "profile-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moullier/profile-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moullier/profile-generator/issues"
+  },
+  "homepage": "https://github.com/moullier/profile-generator#readme",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "electron-html-to": "^2.6.0",
+    "inquirer": "^7.0.3",
+    "request": "^2.88.0"
+  }
+}
