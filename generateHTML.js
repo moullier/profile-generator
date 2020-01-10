@@ -178,7 +178,7 @@ function generateHTML(data) {
                       <img src="${data.pictureURL}">
                       <h1>Hi!</h1>
                       <h2>My name is ${data.name}</h2>
-                      <h4>Currently @ ${data.company}</h4>
+                      <h5>Currently @ ${data.company}</h5>
                       <p class="links-nav">
                           <i class="fas fa-location-arrow"></i>
                           ${data.location}
@@ -190,8 +190,7 @@ function generateHTML(data) {
                           <a href="${data.blogLink}" target="_blank">Blog</a>
                       </p>
                   </div>
-                  <main>
-                      <br>
+                  <main class="container">
                       <div class="row">
                           <div class="col">
                               <h3>${data.bio}</h3>
