@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const axios = require('axios');
-const generateHTML = require("./generateHTML.js");
+const generate = require("./generateHTML.js");
+let results;
 
 const questions = [
     {
@@ -18,7 +19,14 @@ const questions = [
 ];
 
 function writeToFile(fileName, data) {
- 
+    fs.writeFile(fileName, data, 'utf8', function(err) {
+
+        if (err) {
+          return console.log(err);
+        }
+      
+        console.log("Success!");
+    });
 }
 
 function init() {
@@ -28,7 +36,7 @@ function init() {
         .prompt(questions)
         .then(function(answers) {
 
-            let fullname, company, location, gitHubLink, blogLink, bio, repos, followers, stars, following;
+            let fullname, company, location, gitHubLink, blogLink, bio, repos, followers, stars, following, pictureURL;
 
             let queryURL = "https://api.github.com/users/" + answers.username;
             let queryURLRepos = "https://api.github.com/users/" + answers.username + "/repos?per_page=100";
@@ -48,6 +56,8 @@ function init() {
                 repos = response.data.public_repos;
                 followers = response.data.followers;
                 stars = 0;
+                pictureURL = response.data.avatar_url;
+                following = response.data.following;
                 console.log(fullname);
                 console.log(company);
                 console.log(location);
@@ -65,25 +75,43 @@ function init() {
             .then(response => { 
 
                 console.log("second response: "+ response.data);
-                let totalStars = 0;
+                stars = 0;
                 
                 response.data.forEach(element => {
-                    totalStars += element.stargazers_count;
+                    stars += element.stargazers_count;
                     console.log(`stars on ${element.name} are ${element.stargazers_count}`);
                 });
 
-                console.log("total stars = " + totalStars);
+                console.log("total stars = " + stars);
+
+                // build results object to pass in to generateHTML function
+                results = {
+                    name: fullname,
+                    company: company,
+                    location: location,
+                    gitHubLink: gitHubLink,
+                    blogLink: blogLink,
+                    bio: bio,
+                    repos: repos,
+                    followers: followers,
+                    stars: stars,
+                    following: following,
+                    pictureURL: pictureURL,
+                    color: answers.color
+                };
+
+                let HTMLSource = generate.generateHTML(results);
+                console.log(HTMLSource);
+
+                writeToFile("testfile.html", HTMLSource);
+
+
             })
             .catch(error => {
                 console.log(error);
             });
 
-            // build results object to pass in to generateHTML function
-            let results = {
-                name: fullname,
-                company: company,
-                location: location,
-            };
+
 
 
 
