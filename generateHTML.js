@@ -173,13 +173,12 @@ function generateHTML(data) {
       </style>
       </head>
       <body>
-          <div class="container">
-              <div class="wrapper">
+          <div class="wrapper">
                   <div class="photo-header">
                       <img src="${data.pictureURL}">
                       <h1>Hi!</h1>
                       <h2>My name is ${data.name}</h2>
-                      <h6>Currently @ ${data.company}</h6>
+                      <h4>Currently @ ${data.company}</h4>
                       <p class="links-nav">
                           <i class="fas fa-location-arrow"></i>
                           ${data.location}
@@ -195,39 +194,38 @@ function generateHTML(data) {
                       <br>
                       <div class="row">
                           <div class="col">
-                              <h5>${data.bio}</h5>
+                              <h3>${data.bio}</h3>
                           </div>
                       </div>
                       <div class="row">
                           <div class="col">
                               <div class="card">
-                                  <h5>Public Repositories</h5>
-                                  <h5>${data.repos}</h5>
+                                  <h3>Public Repositories</h3>
+                                  <h3>${data.repos}</h3>
                               </div>
                           </div>
                           <div class="col">
                               <div class="card">
-                                  <h5>Followers</h5>
-                                  <h5>${data.followers}</h5>
+                                  <h3>Followers</h3>
+                                  <h3>${data.followers}</h3>
                               </div>
                           </div>
                       </div>
                       <div class="row">
                           <div class="col">
                               <div class="card">
-                                  <h5>GitHub Stars</h5>
-                                  <h5>${data.stars}</h5>
+                                  <h3>GitHub Stars</h3>
+                                  <h3>${data.stars}</h3>
                               </div>
                           </div>
                           <div class="col">
                               <div class="card">
-                                  <h5>Following</h5>
-                                  <h5>${data.following}</h5>
+                                  <h3>Following</h3>
+                                  <h3>${data.following}</h3>
                               </div>
                           </div>                    
                       </div>
                   </main>
-              </div>
           </div>
       </body>
       </html>`

@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const axios = require('axios');
+const convertFactory = require('electron-html-to');
 const generate = require("./generateHTML.js");
 let results;
 
@@ -45,8 +46,6 @@ function init() {
             // query for most GitHub user data
             axios.get(queryURL)
             .then(response => {
-                console.log(response.data);
-                console.log("Data Needed:");
                 fullname = response.data.name;
                 company = response.data.company;
                 location = response.data.location;
@@ -58,13 +57,6 @@ function init() {
                 stars = 0;
                 pictureURL = response.data.avatar_url;
                 following = response.data.following;
-                console.log(fullname);
-                console.log(company);
-                console.log(location);
-                console.log(gitHubLink);
-                console.log(blogLink);
-                console.log(bio);
-
             })
             .catch(error => {
                 console.log(error);
@@ -104,6 +96,21 @@ function init() {
                 console.log(HTMLSource);
 
                 writeToFile("testfile.html", HTMLSource);
+
+                let conversion = convertFactory({
+                    converterPath: convertFactory.converters.PDF
+                });
+
+                conversion({ html: HTMLSource }, function(err, result) {
+                    if (err) {
+                      return console.error(err);
+                    }
+                  
+                    // console.log(result.numberOfPages);
+                    // console.log(result.logs);
+                    result.stream.pipe(fs.createWriteStream(`./${answers.username}4.pdf`));
+                    conversion.kill(); // necessary if you use the electron-server strategy, see bellow for details
+                  });
 
 
             })
