@@ -19,7 +19,6 @@
   "dependencies": {
     "axios": "^0.19.1",
     "electron-html-to": "^2.6.0",
-    "inquirer": "^7.0.3",
-    "request": "^2.88.0"
+    "inquirer": "^7.0.3"
   }
 }
