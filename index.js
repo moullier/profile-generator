@@ -3,8 +3,11 @@ const fs = require("fs");
 const axios = require('axios');
 const convertFactory = require('electron-html-to');
 const generate = require("./generateHTML.js");
+
+// initialize results object to pass to generateHTML function
 let results;
 
+// questions to ask user
 const questions = [
     {
         type: "input",
@@ -19,6 +22,7 @@ const questions = [
     }
 ];
 
+// write data to a file named fileName, output error if received
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, 'utf8', function(err) {
 
@@ -26,7 +30,7 @@ function writeToFile(fileName, data) {
           return console.log(err);
         }
       
-        console.log("Success!");
+        // console.log("Success!");
     });
 }
 
@@ -37,8 +41,10 @@ function init() {
         .prompt(questions)
         .then(function(answers) {
 
+            // initialize variables for data from API call
             let fullname, company, location, gitHubLink, blogLink, bio, repos, followers, stars, following, pictureURL;
 
+            // URLS for API calls
             let queryURL = "https://api.github.com/users/" + answers.username;
             let queryURLRepos = "https://api.github.com/users/" + answers.username + "/repos?per_page=100";
 
@@ -66,15 +72,15 @@ function init() {
             axios.get(queryURLRepos)
             .then(response => { 
 
-                console.log("second response: "+ response.data);
                 stars = 0;
-                
+
+                // iterate through repos and add stars for each one to the total
                 response.data.forEach(element => {
                     stars += element.stargazers_count;
-                    console.log(`stars on ${element.name} are ${element.stargazers_count}`);
+                    // console.log(`stars on ${element.name} are ${element.stargazers_count}`);
                 });
 
-                console.log("total stars = " + stars);
+                // console.log("total stars = " + stars);
 
                 // build results object to pass in to generateHTML function
                 results = {
@@ -93,7 +99,7 @@ function init() {
                 };
 
                 let HTMLSource = generate.generateHTML(results);
-                console.log(HTMLSource);
+                // console.log(HTMLSource);
 
                 writeToFile("testfile.html", HTMLSource);
 
@@ -106,9 +112,10 @@ function init() {
                       return console.error(err);
                     }
                   
-                    // console.log(result.numberOfPages);
-                    // console.log(result.logs);
+                    
+                    //console.log(result.logs);
                     result.stream.pipe(fs.createWriteStream(`./${answers.username}.pdf`));
+                    console.log("PDF generated at " + answers.username + ".pdf");
                     conversion.kill(); // necessary if you use the electron-server strategy, see bellow for details
                   });
 

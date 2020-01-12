@@ -3,7 +3,7 @@ const colors = {
     wrapperBackground: "#E6E1C3",
     headerBackground: "#C1C72C",
     headerColor: "black",
-    photoBorderColor: "#black"
+    photoBorderColor: "black"
   },
   blue: {
     wrapperBackground: "#5F64D3",
@@ -177,7 +177,7 @@ function generateHTML(data) {
                   <div class="photo-header">
                       <img src="${data.pictureURL}">
                       <h1>Hi!</h1>
-                      <h2>My name is ${data.name}</h2>
+                      <h2>My name is ${data.name}!</h2>
                       <h5>Currently @ ${data.company}</h5>
                       <p class="links-nav">
                           <i class="fas fa-location-arrow"></i>
