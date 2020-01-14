@@ -181,7 +181,7 @@ function generateHTML(data) {
                       <h5>Currently @ ${data.company}</h5>
                       <p class="links-nav">
                           <i class="fas fa-location-arrow"></i>
-                          ${data.location}
+                          <a href="https://www.google.com/maps/place/${data.location}" target="_blank">${data.location}</a>
                           &nbsp&nbsp&nbsp&nbsp
                           <i class="fab fa-github"></i>
                           <a href="${data.gitHubLink}" target="_blank">GitHub</a>
